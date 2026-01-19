@@ -3,10 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2Icon } from "lucide-react";
 
-import {
-  Alert,
-  AlertTitle,
-} from "@/components/ui/alert";
+ 
 
 export function AlertDemo({ message }) {
   return (
@@ -39,3 +36,4 @@ export function AlertDemo({ message }) {
     </AnimatePresence>
   );
 }
+
