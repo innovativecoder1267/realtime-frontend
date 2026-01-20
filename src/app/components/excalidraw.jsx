@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import socket from "./socket";
 import { useSearchParams } from "next/navigation";
 import SpinnerButton from "./spinner";
-import { Editor } from "@tldraw/editor";
-import "@tldraw/editor/editor.css";
+import { Tldraw } from "@tldraw/tldraw";
+import "@tldraw/tldraw/tldraw.css";
 export default function Whiteboard({ avatar,host }) {
   const editorRef = useRef(null);
   const params = useSearchParams();
@@ -184,7 +184,7 @@ export default function Whiteboard({ avatar,host }) {
   useEffect(() => {
     const editor = editorRef.current;
     if (!editor) return;
-
+ 
     const canDraw = host || allowedList.includes(socket.id);
 
     if (canDraw && !editorRef.current._unlisten) {
@@ -233,14 +233,13 @@ export default function Whiteboard({ avatar,host }) {
   </div>
 )}
 
+ 
 
-    <Editor
+    <Tldraw
+      licenseKey={process.env.NEXT_PUBLIC_TLDRAW_LICENSE_KEY}
       onMount={handleMount}
       onPointerDown={() => setShowDrawHint(false)}
     />
   </div>
 );
-
-
-
 }
