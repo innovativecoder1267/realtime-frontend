@@ -27,7 +27,7 @@ export default function Invite() {
         );
 
         const roomId = res.data.data.roomId;
-        const inviteURL = `http://localhost:3000/dashboard?room=${roomId}`;
+        const inviteURL = `https://realtime-frontend-htrb.vercel.app/dashboard?room=${roomId}`;
         setUrl(inviteURL);
 
         if (!roomParam) {
