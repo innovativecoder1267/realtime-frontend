@@ -11,7 +11,7 @@ export default function ManageRoom({
   onEndRoom,
   host,
 }) {
-  const inviteURL = `https://realtime-frontend-nr7j.vercel.app/dashboard?room=${roomId}`;
+  const inviteURL = `https://realtime-frontend-htrb.vercel.app/dashboard?room=${roomId}`;
 
   const hostUser = participants.find((u) => u.user === host);
   const otherUsers = participants.filter((u) => u.user !== host);
