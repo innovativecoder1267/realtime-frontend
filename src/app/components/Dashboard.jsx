@@ -660,6 +660,61 @@ return (
     )}
 
     {comingsoon && <KanbanBoard onClose={() => setcomingsoon(false)} />}
+   <div
+  className="
+    md:hidden
+    fixed
+    bottom-3   /* pehle 0 tha */
+    left-3
+    right-3
+    h-[56px]
+    z-[9999]
+
+    bg-gray-900/90
+    backdrop-blur-xl
+    border border-white/10
+
+    flex justify-between items-center
+    px-4
+    rounded-2xl
+
+    shadow-[0_10px_30px_rgba(0,0,0,0.45)]
+  "
+>
+
+  {/* USERS */}
+  <button
+    className="
+      flex items-center gap-2
+      px-4 py-2
+      rounded-xl
+      bg-red-600/90
+      text-white text-sm font-medium
+      active:scale-95 transition
+    "
+    onClick={()=>setopenusers(true)}
+  >
+    👤 Users
+  </button>
+
+  {/* CHAT */}
+  <button
+    onClick={() => setChatOpen(true)}
+    className="
+      relative
+      flex items-center gap-2
+      px-4 py-2
+      rounded-xl
+      bg-slate-800
+      text-white text-sm
+      active:scale-95 transition
+    "
+  >
+    Chat
+  </button>
+
+ 
+</div>
   </div>
 );
 
