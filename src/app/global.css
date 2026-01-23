@@ -121,3 +121,15 @@
     @apply bg-background text-foreground;
   }
 }
+/* ===============================
+   MOBILE: MOVE DRAWING TOOLS UP
+   =============================== */
+ 
+@media (max-width: 768px) {
+  .excalidraw [class*="toolbar"],
+  .excalidraw [data-testid="toolbar"],
+  .excalidraw .Island {
+    bottom: 24px !important;
+  }
+}
+
