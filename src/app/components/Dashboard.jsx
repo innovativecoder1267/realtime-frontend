@@ -62,6 +62,7 @@ export default function Dashboard() {
   const [endroom,setendroom]=useState([])
   const [activeroom,setactiveroom]=useState(false)
   const [endtrue,setendroomtrue]=useState(false)
+  const [mobile,setmobile]=useState(false)
   const router=useRouter();
 function isTokenValid(token) {
   try {
@@ -131,7 +132,12 @@ function isTokenValid(token) {
         socket.on("leaved",handler)
         return ()=>socket.off("leaved",handler)
       },[])
-
+      useEffect(()=>{
+        const check=()=>setmobile(window.innerWidth<768)
+        check();
+        window.addEventListener("resize",check)
+        return () => window.removeEventListener("resize",check)
+      },[])
 
     useEffect(() => {
     const pc = new RTCPeerConnection({
@@ -402,10 +408,27 @@ useEffect(() => {
       console.log("user removed successfully",message)
     })
   },[])
- 
-
+  const Ishost=usersinroom.find((u)=>u.user==hostid)
 const otherusers=usersinroom.find((u)=>u.user!=hostid)
- 
+
+if (mobile) {
+  return (
+    <div className="h-screen w-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+      <div className="max-w-sm text-center p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-xl">
+        <div className="text-4xl mb-3">🖥️</div>
+        <h2 className="text-lg font-semibold mb-2">
+          Desktop Required
+        </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          This application is currently optimized for desktop or laptop screens.
+          <br />
+          Mobile support is coming soon.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 return (
   <div
     className={`flex h-screen w-screen overflow-hidden transition-colors duration-300 ${
@@ -601,7 +624,7 @@ return (
           document.body
         )}
 
-      {endtrue && <AlertDemo message={endroom} />}
+      {/* {endtrue && <AlertDemo message={endroom} />} */}
 
       {/* USERS MODAL */}
       {openusers && (
@@ -635,8 +658,10 @@ return (
       )}
 
       {/* WHITEBOARD */}
-      <div className="flex-1 min-h-0 overflow-hidden">
-        <Whiteboard avatar={avatar} host={socket.id === hostid} />
+      <div className="flex-1 min-h-0 overflow-hidden md: pb-36" class="excalidraw" data-testid="toolbar"
+     
+>   
+  <Whiteboard avatar={avatar} host={socket.id === hostid} />
       </div>
     </div>
 
@@ -660,17 +685,21 @@ return (
     )}
 
     {comingsoon && <KanbanBoard onClose={() => setcomingsoon(false)} />}
-   <div
+
+ 
+<div
   className="
     md:hidden
     fixed
-    bottom-3   /* pehle 0 tha */
     left-3
     right-3
+    bottom-[env(safe-area-inset-bottom)]
+    mb-2
+
     h-[56px]
     z-[9999]
 
-    bg-gray-900/90
+    bg-gray-900/95
     backdrop-blur-xl
     border border-white/10
 
@@ -678,44 +707,26 @@ return (
     px-4
     rounded-2xl
 
-    shadow-[0_10px_30px_rgba(0,0,0,0.45)]
+    shadow-[0_12px_30px_rgba(0,0,0,0.45)]
   "
 >
-
-  {/* USERS */}
-  <button
-    className="
-      flex items-center gap-2
-      px-4 py-2
-      rounded-xl
-      bg-red-600/90
-      text-white text-sm font-medium
-      active:scale-95 transition
-    "
-    onClick={()=>setopenusers(true)}
-  >
+  <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600 text-white text-sm">
     👤 Users
   </button>
 
-  {/* CHAT */}
   <button
     onClick={() => setChatOpen(true)}
-    className="
-      relative
-      flex items-center gap-2
-      px-4 py-2
-      rounded-xl
-      bg-slate-800
-      text-white text-sm
-      active:scale-95 transition
-    "
+    className="flex items-center px-4 py-2 rounded-xl bg-slate-800 text-white text-sm"
   >
     Chat
   </button>
+</div>
+
 
  
-</div>
+
   </div>
-);
+  );
+ 
 
 }
