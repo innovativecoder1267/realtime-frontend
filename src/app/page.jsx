@@ -119,7 +119,7 @@ export default function Landingpage() {
 
 
 <img
-  src="/board.png"
+  src="https://thumbs.dreamstime.com/b/collaborative-whiteboard-area-communal-space-large-whiteboards-where-employees-freely-brainstorm-ideas-showcasing-teamwork-341146470.jpg"
   alt="Whiteboard preview"
   className="mx-auto w-[80%] max-h-[360px] object-contain rounded-[24px] shadow-xl border border-gray-200"
 />
