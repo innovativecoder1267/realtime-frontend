@@ -103,9 +103,6 @@ export default function Landingpage() {
       <span className="group-hover:translate-x-1 transition-transform">→</span>
     </Link>
 
-    <button className="px-9 py-4 rounded-xl font-semibold text-sm border border-gray-300 bg-white/80 backdrop-blur hover:border-gray-400 hover:bg-white transition">
-      Join with Code
-    </button>
   </div>
 
   {/* TRUST LINE */}
