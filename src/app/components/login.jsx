@@ -13,43 +13,47 @@ export default function Login() {
     const [isSubmitting,setisSubmitting]=useState(false)
     const [Message,SetMessage]=useState("")
 async function handleclick() {
-  // console.log(process.env.process.env.NEXT_PUBLIC_BACKEND_URL)
-  if(isSubmitting)return;
-  setisSubmitting(true)
+  if (isSubmitting) return;
+
+  setisSubmitting(true);
+  SetMessage("");
+
   try {
-    const response = await axios.post(`https://realtime-collabration-backend.onrender.com/login`, {
-      email: email,
-      password: password
-    });
+    const response = await axios.post(
+      "https://realtime-collabration-backend.onrender.com/login",
+      {
+        email,
+        password,
+      }
+    );
 
     if (response.status === 200) {
-      const token=response.data.refreshtoken
-      localStorage.setItem("token",token);
-      SetMessage("Redirecting to Dashboard")
-      
+      const token = response.data.refreshtoken;
+      localStorage.setItem("token", token);
 
-      router.push("/dashboard")
+      SetMessage("Redirecting to Dashboard...");
+      router.push("/dashboard");
     }
- 
-   
+
   } catch (error) {
-    if (error.response) {
-      if (error.response.status === 403) {
-        alert("Plz verify the user ");
-        setloggedin(false)
-      }
-      else {        
-        alert(error.response.data.message || "Failed to login");
-        console.log("error is ",error)
-        setloggedin(false)
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        if (error.response.status === 403) {
+          alert("Please verify your email first");
+        } else {
+          alert(error.response.data?.message || "Login failed");
+        }
+      } else {
+        alert("Server not reachable. Try again later.");
       }
     } else {
-      alert("Cannot connect to server. Maybe backend not running?");
-      setloggedin(false)
+      alert("Something went wrong");
     }
+  } finally {
+    // ⭐ MOST IMPORTANT LINE
+    setisSubmitting(false);
   }
 }
-
   return (
     <div className="flex justify-center items-center min-h-screen  bg-gray-50">
         <div>
