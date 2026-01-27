@@ -493,7 +493,7 @@ return (
         {/* LEFT */}
         <div className="flex-shrink-0">
           <AudioControls
-            isHost={hostid === socket.id}
+            isHost={hostid}
             roomid={roomid}
             targetedsocketid={socket.id}
             name={name}
