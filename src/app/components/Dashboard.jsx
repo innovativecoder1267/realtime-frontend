@@ -342,7 +342,6 @@ useEffect(() => {
     socket.emit("allow-list",roomid)
     const listenhandler=(list)=>{
       setallowed(list)
-      sethostid(list[0])
       console.log("host id is",hostid)
     }
     socket.on("list",listenhandler)
