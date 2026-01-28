@@ -113,11 +113,11 @@ function isTokenValid(token) {
     }
     },[])
     useEffect(()=>{
-      socket.on("host-updated",(host)=>{
+     const handler= socket.on("host-updated",(host)=>{
         console.log("Host updated",host.socketid)
         sethostid(host.socketid)
       })
-      return () => socket.off("host-updated")
+      return () => socket.off("host-updated",handler)
     },[])
     useEffect(()=>{
       setTimeout(() => {
